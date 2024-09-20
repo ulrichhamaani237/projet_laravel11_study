@@ -46,7 +46,7 @@
                             </a>
                         </div>
                         <div class="col-3 text-center">
-                            <a href="pages/general/profile.html"
+                            <a href=""
                                 class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i
                                     data-feather="instagram" class="icon-lg mb-1"></i>
                                 <p class="tx-12">Profile</p>
@@ -224,13 +224,13 @@
                                 src="https://via.placeholder.com/80x80" alt="">
                         </div>
                         <div class="text-center">
-                            <p class="tx-16 fw-bolder">Amiah Burton</p>
-                            <p class="tx-12 text-muted">amiahburton@gmail.com</p>
+                            <p class="tx-16 fw-bolder">{{ Auth::user()->name }}</p>
+                            <p class="tx-12 text-muted">{{ Auth::user()->email }}</p>
                         </div>
                     </div>
                     <ul class="list-unstyled p-1">
                         <li class="dropdown-item py-2">
-                            <a href="pages/general/profile.html" class="text-body ms-0">
+                            <a href="{{ route('admin.profile') }}" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="user"></i>
                                 <span>Profile</span>
                             </a>
@@ -249,7 +249,7 @@
                         </li>
                         <li class="dropdown-item py-2">
                            
-                            <a href="{{ route('admin.logout') }}" class="text-body ms-0">
+                            <a href="" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="log-out"></i>
                                 <span>Log Out</span>
                             </a>

@@ -26,6 +26,12 @@ class AdminController extends Controller
         
        return View('admin.admin_login');
     }
+
+    
+    public function AdminProfile(Request $request){
+        
+        return View('admin.admin_profile');
+     }
     
 }
 
