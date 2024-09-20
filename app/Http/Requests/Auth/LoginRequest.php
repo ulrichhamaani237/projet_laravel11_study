@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -27,7 +29,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'login' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -41,14 +43,26 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+  // Recherche un utilisateur avec l'adresse e-mail, le nom ou le numero de telephone correspondant au champ login.
+        $user = User::where('email', $this->login)
+            ->orWhere('name', $this->login)
+            ->orWhere('phone', $this->login)
+            ->first();
+
+        if (!$user || !Hash::check($this->password, $user->password)) {
+           
             RateLimiter::hit($this->throttleKey());
+            
+// Si les informations d'identification sont incorrectes, lance une exception de validation avec un message d'erreur.
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'login' => trans('auth.failed'),
             ]);
         }
 
+        Auth::login($user, $this->boolean('remember'));
+
+        // Réinitialise le compteur de tentatives
         RateLimiter::clear($this->throttleKey());
     }
 
@@ -59,6 +73,9 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
+        // verification du nombre dfe tentative de connexion
+        // Si il y a déjà atteint le nombre maximum de tentatives (5) dans les 5 minutes,
+        // lance une exception de validation avec un message d'erreur.
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
@@ -68,7 +85,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'login' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
