@@ -39,3 +39,5 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
 });
 
 // Route::get('user/dashboard', [AgentController::class,'AgentDashboard'], )->name('agent.dashboard');
+Route::get('admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+Route::get('agent/login', [AgentController::class, 'AgentLogin'])->name('agent.login');
