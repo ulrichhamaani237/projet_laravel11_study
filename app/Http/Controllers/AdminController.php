@@ -73,4 +73,17 @@ class AdminController extends Controller
 
       return redirect('admin/profile')->with('success', 'Profile Updated Successfully...');
    }
+
+
+  /**
+    * Cette fonction récupère la liste des utilisateurs et affiche la vue 'admin.users.list'.
+    *
+    * @param Request $request
+    * @return View
+    */
+   public function admin_users():View
+   {
+      $data['getRecord'] = User::getRecord();
+      return View('admin.users.list', $data);
+   }
 }

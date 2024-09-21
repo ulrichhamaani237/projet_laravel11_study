@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-center mb-2">
-                        <img src="{{ asset('upload/'.Auth::user()->photo) }}" style="border-radius: 100%" width="100" height="100" alt="">
+                        <img src="{{ asset('upload/'.Auth::user()->photo) }}" style="border-radius: 100%; object-fit:cover" width="100" height="100" alt="">
                     </div>
 
                     <p>Hi! {{ Auth::user()->About }}</p>
@@ -108,7 +108,7 @@
 
                                   @if(!empty($getRecord->photo))
 
-                                  <img  style="border-radius: 100%; background-size:cover;" width="150" height="150" src="{{ asset('upload/'.$getRecord->photo) }}" />
+                                  <img  style="border-radius: 100%; object-fit:cover;" width="150" height="150" src="{{ asset('upload/'.$getRecord->photo) }}" />
 
                                   @endif
 
