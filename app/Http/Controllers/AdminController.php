@@ -86,4 +86,15 @@ class AdminController extends Controller
       $data['getRecord'] = User::getRecord();
       return View('admin.users.list', $data);
    }
+
+   public function  admin_user_view($id):View
+   {
+      $data['getRecord'] = User::find($id);
+     
+      return View('admin.users.view', $data);
+   }
+
+   
+
+   
 }

@@ -32,11 +32,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
     <!-- endinject -->
 
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/demo2/style.css">
-    <!-- End layout styles -->
+   <link rel="stylesheet" href="{{ asset('assets/css/demo2/style.css') }}">
+   <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}">
 
-    <link rel="shortcut icon" href="../assets/images/favicon.png" />
 </head>
 
 <body>

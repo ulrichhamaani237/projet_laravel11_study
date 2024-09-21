@@ -49,4 +49,9 @@ class User extends Authenticatable
                     $return = $return->paginate(20);
                     return $return;
     }
+
+    static public function single_record()
+    {
+        
+    }
 }
