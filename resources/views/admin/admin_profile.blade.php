@@ -13,44 +13,53 @@
                 <div class="card-body">
 
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h6 class="card-title mb-0">Profile update</h6>
+                        <h6 class="card-title mb-0">My Profile </h6>
                     </div>
 
-                    <p>Hi! {{ $getRecord->About }}</p>
+                    <div class="d-flex align-items-center justify-content-center mb-2">
+                        <img src="{{ asset('upload/'.Auth::user()->photo) }}" style="border-radius: 100%" width="100" height="100" alt="">
+                    </div>
+
+                    <p>Hi! {{ Auth::user()->About }}</p>
 
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Name:</label>
-                        <p class="text-muted">{{ $getRecord->name }}</p>
+                        <p class="text-muted">{{ Auth::user()->name }}</p>
+                    </div>
+
+                    <div class="mt-3">
+                        <label class="tx-11 fw-bolder mb-0 text-uppercase">Joined:</label>
+                        <p class="text-muted">{{ Auth::user()->created_at }}</p>
                     </div>
 
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Username:</label>
-                        <p class="text-muted">{{ $getRecord->username }}</p>
+                        <p class="text-muted"> {{ Auth::user()->username }}</p>
                     </div>
 
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Role:</label>
-                        <p class="text-muted">{{ $getRecord->role }}</p>
+                        <p class="text-muted">{{ Auth::user()->role }}</p>
                     </div>
 
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Lives:</label>
-                        <p class="text-muted">{{ $getRecord->address }}</p>
+                        <p class="text-muted"> {{ Auth::user()->address }}</p>
                     </div>
 
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Email:</label>
-                        <p class="text-muted">{{ $getRecord->email }}</p>
+                        <p class="text-muted">{{ Auth::user()->email }}</p>
                     </div>
 
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Website:</label>
-                        <p class="text-muted">{{ $getRecord->website }}</p>
+                        <p class="text-muted"> {{ Auth::user()->website }}</p>
                     </div>
 
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Phone Number:</label>
-                        <p class="text-muted">{{ $getRecord->phone }}</p>
+                        <p class="text-muted">{{ Auth::user()->phone }}</p>
                     </div>
 
                 </div>
