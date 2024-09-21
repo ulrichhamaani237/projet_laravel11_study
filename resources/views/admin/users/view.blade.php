@@ -100,7 +100,7 @@
                     <div class="col-sm-9">
                         <span class="badge bg-dark">{{ date('d-m-y', strtotime($getRecord->created_at)) }}</span>
                     </div>
-                </div>
+                </div> 
 
                 <div class="row mb-3">
                     <label for="exampleInputMobile" class="col-sm-3 col-form-label">Updated</label>
