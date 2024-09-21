@@ -4,33 +4,55 @@
 
 <div class="page-content">
 
-
+    @include('_message')
     <div class="row profile-body">
         <!-- left wrapper start -->
         <div class="d-none d-md-block col-md-4 col-xl-3 left-wrapper">
             <div class="card rounded">
+
                 <div class="card-body">
+
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h6 class="card-title mb-0">Profile update</h6>
                     </div>
-                    <p>Hi! I'm Amiah the Senior UI Designer at NobleUI. We hope you enjoy the design and quality of Social.</p>
+
+                    <p>Hi! {{ $getRecord->About }}</p>
+
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Name:</label>
-                        <p class="text-muted">Admin Ulrich</p>
+                        <p class="text-muted">{{ $getRecord->name }}</p>
                     </div>
+
+                    <div class="mt-3">
+                        <label class="tx-11 fw-bolder mb-0 text-uppercase">Username:</label>
+                        <p class="text-muted">{{ $getRecord->username }}</p>
+                    </div>
+
+                    <div class="mt-3">
+                        <label class="tx-11 fw-bolder mb-0 text-uppercase">Role:</label>
+                        <p class="text-muted">{{ $getRecord->role }}</p>
+                    </div>
+
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Lives:</label>
-                        <p class="text-muted">New York, USA</p>
+                        <p class="text-muted">{{ $getRecord->address }}</p>
                     </div>
+
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Email:</label>
-                        <p class="text-muted">me@nobleui.com</p>
+                        <p class="text-muted">{{ $getRecord->email }}</p>
                     </div>
+
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Website:</label>
-                        <p class="text-muted">www.nobleui.com</p>
+                        <p class="text-muted">{{ $getRecord->website }}</p>
                     </div>
-                   
+
+                    <div class="mt-3">
+                        <label class="tx-11 fw-bolder mb-0 text-uppercase">Phone Number:</label>
+                        <p class="text-muted">{{ $getRecord->phone }}</p>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -45,52 +67,62 @@
 
                             <h6 class="card-title">Profile Update</h6>
 
-                            <form class="forms-sample" action="" method="POST">
-                             @csrf 
-                             
-                             <div class="mb-3">
-                                <label for="" class="form-label">Name</label>
-                                <input type="text" class="form-control"  name="name"  placeholder="Name">
-                            </div>
+
+                            <form class="forms-sample" action="{{ url('admin_profile/update') }}" method="POST"  enctype="multipart/form-data">
+                                {{ csrf_field() }}
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Name</label>
+                                    <input type="text" class="form-control" value="{{ $getRecord->name }}" name="name" placeholder="Name">
+                                </div>
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">Username</label>
-                                    <input type="text" name="username" class="form-control"   placeholder="Username">
+                                    <input type="text" name="username" value="{{ $getRecord->username }}" class="form-control" placeholder="Username">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Email">
+                                    <input type="email" class="form-control" name="email" value="{{ $getRecord->email }}" placeholder="Email">
+                                    <span style="color: red" >{{ $errors->first('email') }}</span>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label  class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control"  placeholder="Password">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password">
                                 </div>
-                             
-                                <div class="mb-3">
-                                    <label  class="form-label">Profile Image</label>
+
+                                <div class="mb-3  " style="display: flex; flex-direction:row; align-items:center; flex-wrap:wrap; justify-content:space-between">
+                                   <div><label class="form-label">Profile Image</label>
                                     <input type="file" name="photo" class="form-control">
+                                  </div> 
+
+                                  @if(!empty($getRecord->photo))
+
+                                  <img  style="border-radius: 100%; background-size:cover;" width="150" height="150" src="{{ asset('upload/'.$getRecord->photo) }}" />
+
+                                  @endif
+
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">Address</label>
-                                    <input type="text" name="address" class="form-control"   placeholder="address">
+                                    <input type="text" name="address" value="{{ $getRecord->address }}" class="form-control" placeholder="address">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">Phone Number</label>
-                                    <input type="number" name="phone" class="form-control"   placeholder="phone">
+                                    <input type="text" name="phone" value="{{ $getRecord->phone }}" class="form-control" placeholder="phone">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">Website</label>
-                                    <input type="text" name="website" class="form-control"  placeholder="website">
+                                    <input type="text" name="website" value="{{ $getRecord->website }}" class="form-control" placeholder="website">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label  class="form-label">About Me </label>
-                                    <textarea type='text' class="form-control"  placeholder="About" name="about" ></textarea>
+                                    <label class="form-label">About Me </label>
+                                    <textarea type='text' class="form-control" placeholder="About" name="about" value="{{ $getRecord->about }}"></textarea>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
