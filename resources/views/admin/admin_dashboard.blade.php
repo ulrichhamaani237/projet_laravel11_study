@@ -88,6 +88,7 @@
     <!-- End custom js for this page -->
 
     @yield('script')
+    
     <script type="text/javascript" >
  
     </script>
