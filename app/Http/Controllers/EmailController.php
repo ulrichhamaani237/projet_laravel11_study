@@ -51,5 +51,29 @@ class EmailController extends Controller
 
 
     }
+
+    public function email_sends(Request $request)
+    {
+        $data['getEmail'] = Compose_emails::get();
+
+        return View('admin.email.sends', $data);
+    }
+
+    public function email_sends_delete( Request $request)
+    {
+        if (!empty($request->id)) {
+            $option = explode(',', $request->id);
+
+            foreach($option as $id)
+            {
+                if (!empty($id)) {
+                   $getRecord = Compose_emails::find($id);
+                   $getRecord->delete();
+                }
+            }
+
+            return redirect()->back()->with('success', ' Email Delete Succesfull... ');
+        }
+    }
     
 }
