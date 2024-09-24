@@ -108,19 +108,19 @@
 
 
 @endsection
-
 @section('script')
 
 <script type="text/javascript">
 
     $('.delete-all-option').change(function() {
         var total = '';
-        $('delete-all-option').each(function() {
+        $('.delete-all-option').each(function() {
             if (this.checked) {
                 var id = $(this).val();
                 total += id + ',';
             }
         });
+
         var url = '{{ url('admin/email_sent?id=')}}'+total;
        
         $('#getDeleteURL').attr('href', url);
