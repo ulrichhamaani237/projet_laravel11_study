@@ -2,7 +2,7 @@
 @section('admin')
 
 <div class="page-content">
-
+  @include('_message')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Users</a></li>
@@ -95,19 +95,15 @@
                                     <label for="" class="form-label">status</label>
                                 </div>
                                 <select class="compose-multiple-select form-control" name="status">
-
                                     <option>
                                         select status
                                     </option>
-
                                     <option value="active" {{ (Request()->status == 'active') ? 'selected' : '' }} >
                                         active
                                     </option>
-
                                     <option value="inactive" {{ (Request()->status == 'inactive') ? 'selected' : '' }} >
                                         inactive
                                     </option>
-
                                 </select>
                             </div>
 

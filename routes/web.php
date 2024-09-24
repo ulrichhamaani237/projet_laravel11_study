@@ -40,6 +40,8 @@ Route::middleware(['auth', 'role:admin'])->group(function (){
     Route::get('admin/email/read/{id}',[EmailController::class, 'admin_email_read']);
     Route::get('admin/email/read_delete/{id}', [EmailController::class, 'admin_email_read_delete']);
     Route::get('admin/users/add',[AdminController::class, 'admin_add_users']);
+    Route::post('admin/users/add',[AdminController::class, 'admin_users_add_store']);
+
 
     
 });

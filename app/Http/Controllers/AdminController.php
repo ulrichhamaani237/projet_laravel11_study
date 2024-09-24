@@ -110,5 +110,30 @@ class AdminController extends Controller
       return View('admin.users.add');
 
    }
+
+   public function admin_users_add_store(Request $request)
+   {
+     /* $request->validate([
+         'name' =>'required',
+         'username' =>'required|unique:users',
+         'email' =>'required|unique:users',
+         'phone' =>'required',
+         'role' =>'required',
+         'status' =>'required|in:active,inactive|max:255',
+
+      ]);*/
+
+     $save = new User;
+     $save->name = trim($request->name);
+     $save->username = trim($request->username);
+     $save->email = trim($request->email);
+     $save->phone = trim($request->phone);
+     $save->role = trim($request->role);
+     $save->status = trim($request->status);
+
+     $save->save();
+     return redirect('admin/users')->with('success', 'User Added Successfully...');
+
+   }
     
 }
