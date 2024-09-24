@@ -101,5 +101,14 @@ class AdminController extends Controller
      
       return View('admin.users.view', $data);
    }
+
+   public function admin_add_users(Request $request):View
+   {
+
+    
+
+      return View('admin.users.add');
+
+   }
     
 }
