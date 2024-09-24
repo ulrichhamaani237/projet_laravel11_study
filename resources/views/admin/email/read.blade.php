@@ -3,6 +3,7 @@
 
 <div class="page-content">
     @include('_message')
+    
     <div class="col-lg-12">
         <div class="d-flex align-items-center justify-content-between p-3 border-bottom tx-16">
           <div class="d-flex align-items-center">
