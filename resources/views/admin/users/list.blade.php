@@ -15,70 +15,76 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
-                        seach Users
+                        Seach Users
                     </div>
-                    <form action="" class="form-control">
+                    <form action="" method="GET" class="form-control">
                         <div class="row">
-
                             <div class="col-sm-3">
                                 <div class="mb-3 ">
                                     <label for="" class="form-label">id</label>
                                 </div>
-                                <input type="text" name="id" placeholder="Enter id" class="form-control">
+
+                                <input type="text" name="id" value="{{ Request()->id }}" placeholder="Enter id" class="form-control">
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Name</label>
                                 </div>
-                                <input type="text" name="name" placeholder="Enter Name" class="form-control">
+                                <input type="text" name="name" value="{{ Request()->name }}" placeholder="Enter Name" class="form-control">
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Username</label>
                                 </div>
-                                <input type="text" name="username" placeholder="Enter userName" class="form-control">
+                                <input type="text" name="username" value="{{ Request()->username }}" placeholder="Enter userName" class="form-control">
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Email</label>
                                 </div>
-                                <input type="text" name="email" placeholder="Enter Email" class="form-control">
-                            </div>
+                                <select class="compose-multiple-select form-select" name="user_id">
+                                    <option value="">select email Agent or User</option>
+                                    @foreach ($getRecord as $value)
+                                    <option value="{{ $value->id }}">{{ $value->email }} -
+                                        {{ $value->role }}</option>
+                                    @endforeach
+                                </select>                        
+                                </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">phone</label>
                                 </div>
-                                <input type="text" name="phone" placeholder="Enter phone number" class="form-control">
+                                <input type="text" name="phone" value="{{ Request()->phone }}" placeholder="Enter phone number" class="form-control">
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label for="website" class="form-label">website</label>
                                 </div>
-                                <input type="text" name="" placeholder="Enter website" class="form-control">
+                                <input type="text" name="website" value="{{ Request()->website }}" placeholder="Enter website" class="form-control">
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label for="role" class="form-label">role</label>
                                 </div>
-                                <select class="compose-multiple-select form-control" name="role">
+                                <select class="compose-multiple-select form-control"  name="role">
 
                                     <option value="">
                                         select role
                                     </option>
 
-                                    <option value="admin">
+                                    <option value="admin" {{ (Request()->role == 'admin') ? 'selected' : '' }} >
                                         admin
                                     </option>
-                                    <option value="agent">
+                                    <option value="agent" {{ (Request()->role == 'agent') ? 'selected' : '' }} >
                                         agent
                                     </option>
-                                    <option value="user">
+                                    <option value="user" {{ (Request()->role == 'user') ? 'selected' : '' }} >
                                         user
                                     </option>
                                 </select>
@@ -90,26 +96,27 @@
                                 </div>
                                 <select class="compose-multiple-select form-control" name="status">
 
-                                    <option value="">
+                                    <option>
                                         select status
                                     </option>
 
-                                    <option value="active">
+                                    <option value="active" {{ (Request()->status == 'active') ? 'selected' : '' }} >
                                         active
                                     </option>
 
-                                    <option value="inactive">
+                                    <option value="inactive" {{ (Request()->status == 'inactive') ? 'selected' : '' }} >
                                         inactive
                                     </option>
+
                                 </select>
                             </div>
 
                         </div>
 
 
-                        <a href="" class="btn btn-primary">
-                            <b>Seach</b>
-                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            Seach
+                        </button>
 
                         <a href="{{ url('admin/users') }}" class="btn btn-danger h3">Reset</a>
 
@@ -121,7 +128,8 @@
 
     <br>
 
-    <div class="row">
+    
+</div><div class="row">
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -146,7 +154,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($getRecord as $value )
+                                @forelse ($getRecord as $value )
 
 
                                 <tr class="table-info text-dark">
@@ -194,7 +202,12 @@
                                         </a>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <tr style=" colspan:5" >
+                                    <td>No data found</td>
+                                </tr>
+                               
+                                @endforelse
                             </tbody>
                         </table>
 
@@ -207,7 +220,6 @@
         </div>
 
     </div>
-</div>
 
 
 @endsection

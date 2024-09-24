@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Request;
+
 
 class User extends Authenticatable
 {
@@ -41,14 +44,50 @@ class User extends Authenticatable
         ];
     }
 
-    static public function getRecord()
+    static public function getRecord($request)
     {
         $return = self::select('users.*')
                     ->orderBy('id', 'asc');
+                    //search start
+                    
+                    
+                    if (!empty(Request::get('id'))) {
+                        $return = $return->where('users.id','=', Request::get('id'));
+                    }
 
+                    if (!empty(Request::get('name'))) {
+                        $return = $return->where('users.name','LIKE','%'.Request::get('name').'%');
+                    }
+
+                    if (!empty(Request::get('email'))) {
+                        $return = $return->where('users.email','LIKE','%'.Request::get('email').'%');
+                    }
+
+                    if (!empty(Request::get('role'))) {
+                        $return = $return->where('users.role','=', Request::get('role'));
+                    }
+
+                    if (!empty(Request::get('status'))) {
+                        $return = $return->where('users.status','=', Request::get('status'));
+                    }
+
+                    if (!empty(Request::get('phone'))) {
+                        $return = $return->where('users.phone','LIKE','%'.Request::get('phone').'%');
+                    }
+
+                    if (!empty(Request::get('username'))) {
+                        $return = $return->where('users.username','LIKE','%'.Request::get('username').'%');
+                    }
+
+
+
+
+                    // search end
                     $return = $return->paginate(20);
                     return $return;
     }
+
+   
 
     static public function single_record()
     {

@@ -89,9 +89,9 @@ class AdminController extends Controller
     * @param Request $request
     * @return View
     */
-   public function admin_users():View
+   public function admin_users(Request $request):View
    {
-      $data['getRecord'] = User::getRecord();
+      $data['getRecord'] = User::getRecord($request);
       return View('admin.users.list', $data);
    }
 
@@ -101,8 +101,5 @@ class AdminController extends Controller
      
       return View('admin.users.view', $data);
    }
-
-   
-
-   
+    
 }
