@@ -119,15 +119,7 @@ class AdminController extends Controller
 
    public function admin_users_add_store(Request $request)
    {
-     /* $request->validate([
-         'name' =>'required',
-         'username' =>'required|unique:users',
-         'email' =>'required|unique:users',
-         'phone' =>'required',
-         'role' =>'required',
-         'status' =>'required|in:active,inactive|max:255',
-
-      ]);*/
+     
 
      $save = new User;
      $save->name = trim($request->name);
