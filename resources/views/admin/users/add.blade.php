@@ -48,8 +48,7 @@
                         <div class="row mb-3">
                             <label for="exampleInputMobile" class="col-sm-3 col-form-label">Mobile</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="exampleInputMobile" name="phone"
-                                    placeholder="Mobile number">
+                                <input type="text" class="form-control" id="exampleInputMobile" name="phone" placeholder="Mobile number">
                             </div>
                         </div>
 
