@@ -157,9 +157,37 @@ class AdminController extends Controller
       $user->status = 'active';
       $user->save();
 
-      return redirect('admin.login')->with('success', 'Password Updated Successfully...');
+      return redirect('admin/login')->with('success', 'Password Updated Successfully...');
 
       
 
     }
+
+    public function admin_users_edit($id)
+    { 
+      $data['getRecord'] = User::find($id);
+     
+     return view('admin.users.edit',$data);
+    }
+
+    public  function test(){
+      
+      return View('admin.users.test');
+    }
+
+    public function users_admin_edit_id_update($id, Request $request){
+     // dd($request->all());
+      $user = User::find($id);
+      $user->name = trim($request->name);
+      $user->name = trim($request->username);
+      $user->name = trim($request->email);
+      $user->name = trim($request->phone);
+      $user->name = trim($request->status);
+      $user->name = trim($request->role);
+      $user->save();
+
+      return redirect('admin/users')->with('success', 'User Update Succefull...');
+
+  }
+
 }

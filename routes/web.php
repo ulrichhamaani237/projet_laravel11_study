@@ -41,6 +41,10 @@ Route::middleware(['auth', 'role:admin'])->group(function (){
     Route::get('admin/email/read_delete/{id}', [EmailController::class, 'admin_email_read_delete']);
     Route::get('admin/users/add',[AdminController::class, 'admin_add_users']);
     Route::post('admin/users/add',[AdminController::class, 'admin_users_add_store']);
+    Route::get('admin/users/edit/{id}',[AdminController::class, 'admin_users_edit']);
+    Route::post('admin/users/edit/{id}',[AdminController::class, 'users_admin_edit_id_update']);
+    
+    
 
 
     
@@ -57,3 +61,4 @@ Route::get('admin/login', [AdminController::class, 'AdminLogin'])->name('admin.l
 Route::get('agent/login', [AgentController::class, 'AgentLogin'])->name('agent.login');
 Route::get('set_new_password/{token}',[AdminController::class, 'set_new_password']);
 Route::post('set_new_password/{token}',[AdminController::class, 'set_new_password_post']);
+Route::get('admin/test',[AdminController::class, 'test']);
