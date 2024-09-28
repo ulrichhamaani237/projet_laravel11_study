@@ -43,6 +43,7 @@ Route::middleware(['auth', 'role:admin'])->group(function (){
     Route::post('admin/users/add',[AdminController::class, 'admin_users_add_store']);
     Route::get('admin/users/edit/{id}',[AdminController::class, 'admin_users_edit']);
     Route::post('admin/users/edit/{id}',[AdminController::class, 'users_admin_edit_id_update']);
+    Route::get('admin/users/delete/{id}', [AdminController::class, 'admin_users_delete']);
     
     
 

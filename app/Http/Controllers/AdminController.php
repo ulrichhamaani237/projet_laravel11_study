@@ -168,6 +168,7 @@ class AdminController extends Controller
       $data['getRecord'] = User::find($id);
      
      return view('admin.users.edit',$data);
+
     }
 
     public  function test(){
@@ -188,6 +189,14 @@ class AdminController extends Controller
 
       return redirect('admin/users')->with('success', 'User Update Succefull...');
 
+  }
+
+  public function admin_users_delete($id)
+  {
+    $users = User::find($id);
+    $users->delete();
+
+    return redirect('admin/users')->with('success','user delete Succefull...');
   }
 
 }
