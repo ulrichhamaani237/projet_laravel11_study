@@ -200,4 +200,14 @@ class AdminController extends Controller
 
       return redirect('admin/users')->with('success', 'user delete Succefull...');
    }
+
+   public function admin_users_update(Request $request){
+     
+     $record = User::find( $request->input('edit_id'));
+     $record->name = $request->input('edit_name');
+     $record->save();
+     $json['success'] = 'Data Update Successfully...';
+
+      echo json_encode($json);
+   }
 }

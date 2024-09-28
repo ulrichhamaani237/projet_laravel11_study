@@ -51,8 +51,7 @@ class User extends Authenticatable
         $return = self::select('users.*')
                     ->orderBy('id', 'asc');
                     //search start
-                    
-                    
+                                                                          
                     if (!empty(Request::get('id'))) {
                         $return = $return->where('users.id','=', Request::get('id'));
                     }
@@ -86,9 +85,6 @@ class User extends Authenticatable
                         $return = $return->where('users.created_at','>=',Request::get('start_date'))
                         ->where('users.updated_at','<=',Request::get('end_date'));
                     }
-
-
-
 
                     // search end
                     $return = $return->paginate(20);
