@@ -7,7 +7,15 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Users</a></li>
             <li class="breadcrumb-item active" aria-current="page">Users List</li>
+            
         </ol>
+        <div class="d-flex align-items-center">
+            <a href=""  class="btn btn-info">{{ $TotalAdmin }} Admin</a>&sharp; &sharp;
+            <a href="" class="btn btn-warning">{{ $TotalUser }} user</a>&sharp;&sharp;
+            <a href="" class="btn btn-secondary"> {{ $TotalAgent }} Agnent </a>&sharp;&sharp;
+            <a href="" class="btn btn-danger"> {{ $TotalActive }} active</a>&sharp;&sharp;
+            <a href="" class="btn btn-success">{{ $TotalInactive }} Inactive</a>&sharp;&sharp;
+        </div>
     </nav>
 
     <div class="row">
