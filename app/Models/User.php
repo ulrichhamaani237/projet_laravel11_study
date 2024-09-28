@@ -4,9 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Request;
 
 
@@ -77,6 +79,12 @@ class User extends Authenticatable
 
                     if (!empty(Request::get('username'))) {
                         $return = $return->where('users.username','LIKE','%'.Request::get('username').'%');
+                    }
+
+                    if (!empty(Request::get('start_date')) && !empty(Request::get('end_date'))) {       
+
+                        $return = $return->where('users.created_at','>=',Request::get('start_date'))
+                        ->where('users.updated_at','<=',Request::get('end_date'));
                     }
 
 

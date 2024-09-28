@@ -20,14 +20,14 @@ class AdminController extends Controller
    public function AdminDashboard(Request $request)
    {
       $user = User::selectRaw('count(id) as count, DATE_FORMAT(created_at, "%Y-%m") as month')
-               ->groupBy('month')
-               ->orderBy('month', 'asc')
-               ->get();
+         ->groupBy('month')
+         ->orderBy('month', 'asc')
+         ->get();
 
-                $data['months'] = $user->pluck('month');
-                $data['counts'] = $user->pluck('count');
-              
-              
+      $data['months'] = $user->pluck('month');
+      $data['counts'] = $user->pluck('count');
+
+
       return View('admin.index', $data);
    }
 
@@ -56,9 +56,9 @@ class AdminController extends Controller
    public function admin_profile_update(Request $request)
    {
       $user = request()->validate([
-         'email' => 'required|unique:users,email,'.Auth::user()->id
+         'email' => 'required|unique:users,email,' . Auth::user()->id
       ]);
-      
+
 
       // Update Profile Here...
 
@@ -89,101 +89,98 @@ class AdminController extends Controller
    }
 
 
-  /**
+   /**
     * Cette fonction récupère la liste des utilisateurs et affiche la vue 'admin.users.list'.
     *
     * @param Request $request
     * @return View
     */
-   public function admin_users(Request $request):View
+   public function admin_users(Request $request): View
    {
       $data['getRecord'] = User::getRecord($request);
-      $data['TotalAdmin'] = User::where('role','=','admin')->count();
-      $data['TotalUser'] = User::where('role','=','user')->count();
-      $data['TotalAgent'] = User::where('role','=','agent')->count();
-      $data['TotalActive'] = User::where('status','=','active')->count();
-      $data['TotalInactive'] = User::where('status','=','inactive')->count();
+      $data['TotalAdmin'] = User::where('role', '=', 'admin')->count();
+      $data['TotalUser'] = User::where('role', '=', 'user')->count();
+      $data['TotalAgent'] = User::where('role', '=', 'agent')->count();
+      $data['TotalActive'] = User::where('status', '=', 'active')->count();
+      $data['TotalInactive'] = User::where('status', '=', 'inactive')->count();
 
       return View('admin.users.list', $data);
    }
 
-   public function  admin_user_view($id):View
+   public function  admin_user_view($id): View
    {
       $data['getRecord'] = User::find($id);
-     
+
       return View('admin.users.view', $data);
    }
 
-   public function admin_add_users(Request $request):View
+   public function admin_add_users(Request $request): View
    {
 
-    
+
 
       return View('admin.users.add');
-
    }
 
    public function admin_users_add_store(Request $request)
    {
-     
 
-     $save = new User;
-     $save->name = trim($request->name);
-     $save->username = trim($request->username);
-     $save->email = trim($request->email);
-     $save->phone = trim($request->phone);
-     $save->role = trim($request->role);
-     $save->status = trim($request->status);
-     $save->remember_token = Str::random(50);
-     $save->save();
 
-   Mail::to($save->email)->send(new RegisterMail($save));
+      $save = new User;
+      $save->name = trim($request->name);
+      $save->username = trim($request->username);
+      $save->email = trim($request->email);
+      $save->phone = trim($request->phone);
+      $save->role = trim($request->role);
+      $save->status = trim($request->status);
+      $save->remember_token = Str::random(50);
+      $save->save();
 
-    
-     return redirect('admin/users')->with('success', 'User Added Successfully...');
+      Mail::to($save->email)->send(new RegisterMail($save));
 
+
+      return redirect('admin/users')->with('success', 'User Added Successfully...');
    }
 
 
-   public function  set_new_password($token){
-        $data['token'] = $token;
+   public function  set_new_password($token)
+   {
+      $data['token'] = $token;
       return View('auth.reset_passs', $data);
    }
-    public function set_new_password_post($token, ResetPassword $request)
-    {
-      $user = User::where('remember_token','=',$token);
+   public function set_new_password_post($token, ResetPassword $request)
+   {
+      $user = User::where('remember_token', '=', $token);
 
       if ($user->count() == 0) {
          abort(403);
       }
 
-      
+
       $user->password = Hash::make($request->password);
       $user->remember_token = Str::random(50);
       $user->status = 'active';
       $user->save();
 
       return redirect('admin/login')->with('success', 'Password Updated Successfully...');
+   }
 
-      
-
-    }
-
-    public function admin_users_edit($id)
-    { 
+   public function admin_users_edit($id)
+   {
       $data['getRecord'] = User::find($id);
-     
-     return view('admin.users.edit',$data);
 
-    }
+      return view('admin.users.edit', $data);
+   }
 
-    public  function test(){
-      
+   public  function test()
+   {
+
       return View('admin.users.test');
-    }
+   }
 
-    public function users_admin_edit_id_update($id, Request $request){
-     // dd($request->all());
+   public function users_admin_edit_id_update($id, Request $request)
+   {
+      // dd($request->all());
       $user = User::find($id);
       $user->name = trim($request->name);
       $user->name = trim($request->username);
@@ -194,15 +191,13 @@ class AdminController extends Controller
       $user->save();
 
       return redirect('admin/users')->with('success', 'User Update Succefull...');
+   }
 
-  }
+   public function admin_users_delete($id)
+   {
+      $users = User::find($id);
+      $users->delete();
 
-  public function admin_users_delete($id)
-  {
-    $users = User::find($id);
-    $users->delete();
-
-    return redirect('admin/users')->with('success','user delete Succefull...');
-  }
-
+      return redirect('admin/users')->with('success', 'user delete Succefull...');
+   }
 }

@@ -10,11 +10,11 @@
             
         </ol>
         <div class="d-flex align-items-center">
-            <a href=""  class="btn btn-info">{{ $TotalAdmin }} Admin</a>&sharp; &sharp;
-            <a href="" class="btn btn-warning">{{ $TotalUser }} user</a>&sharp;&sharp;
-            <a href="" class="btn btn-secondary"> {{ $TotalAgent }} Agnent </a>&sharp;&sharp;
-            <a href="" class="btn btn-danger"> {{ $TotalActive }} active</a>&sharp;&sharp;
-            <a href="" class="btn btn-success">{{ $TotalInactive }} Inactive</a>&sharp;&sharp;
+            <a href=""  class="btn btn-info">{{ $TotalAdmin }} Admin</a>&nbsp; &nbsp;
+            <a href="" class="btn btn-warning">{{ $TotalUser }} user</a>&nbsp;&nbsp;
+            <a href="" class="btn btn-secondary"> {{ $TotalAgent }} Agnent </a>&nbsp;&nbsp;
+            <a href="" class="btn btn-danger"> {{ $TotalActive }} active</a>&nbsp;&nbsp;
+            <a href="" class="btn btn-success">{{ $TotalInactive }} Inactive</a>&nbsp;&nbsp;
         </div>
     </nav>
 
@@ -115,6 +115,20 @@
                                 </select>
                             </div>
 
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="mb-3">
+                                <label for="website" class="form-label">Start Date</label>
+                            </div>
+                            <input type="date" name="start_date" value="{{ Request()->start_date }}" placeholder="Enter start date" class="form-control">
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="mb-3">
+                                <label for="website" class="form-label">End Date</label>
+                            </div>
+                            <input type="date" name="end_date" value="{{ Request()->end_date }}" placeholder="Enter end date" class="form-control">
                         </div>
 
 
