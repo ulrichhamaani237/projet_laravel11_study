@@ -13,7 +13,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    /**
+    /**     
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -58,7 +58,7 @@ class LoginRequest extends FormRequest
             throw ValidationException::withMessages([
                 'login' => trans('auth.failed'),
             ]);
-        }
+        } 
 
         Auth::login($user, $this->boolean('remember'));
 

@@ -73,9 +73,14 @@ class User extends Authenticatable
                     }
 
                     if (!empty(Request::get('phone'))) {
-                        $return = $return->where('users.phone','LIKE','%'.Request::get('phone').'%');
-                    }
+                        $return = $return->
+                        where('users.phone',
+                        'LIKE','%'
+                        .Request::get('phone')
+                        .'%');
 
+                    }
+                                  
                     if (!empty(Request::get('username'))) {
                         $return = $return->where('users.username','LIKE','%'.Request::get('username').'%');
                     }
