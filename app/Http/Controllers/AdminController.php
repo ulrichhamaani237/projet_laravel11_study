@@ -210,4 +210,13 @@ class AdminController extends Controller
 
       echo json_encode($json);
    }
+
+   public  function admin_user_changeStatus(Request $request){
+      $order = User::find($request->order_id);
+      $order->status = $request->status_id;
+      $order->save();
+      
+      $json['success'] = true;
+      echo json_encode($json);
+   }
 }

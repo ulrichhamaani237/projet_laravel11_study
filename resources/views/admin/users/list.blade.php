@@ -204,11 +204,15 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($value->status == 'active')
+                                        {{-- @if($value->status == 'active')
                                         <span class="badge bg-success">Active</span>
                                         @else
                                         <span class="badge bg-danger">Inactive</span>
-                                        @endif
+                                        @endif --}}
+                                        <select name="" id="{{ $value->id }}" style="width: 170px" class="form-control changeStatus">
+                                            <option  {{ ($value->status == 'active') ? 'selected' : '' }} >active</option>
+                                            <option  {{ ($value->status == 'inactive') ? 'selected' : '' }} >inactive</option>
+                                        </select>
                                     </td>
                                     <td>
                                         {{ $value->phone }}
@@ -291,7 +295,25 @@
         });
 
     });
+    
 
+$('.changeStatus').change(function (e) { 
+    var status_id = $(this).val();
+    var order_id = $(this).attr('id');
+    e.preventDefault();
+
+    $.ajax({
+        type: "GET",
+        url: "{{ url('admin/users/changeStatus') }}",
+        data: {status_id: status_id, order_id: order_id},
+        dataType: "JSON",
+        success: function (data) {
+            // alert("Status update successfully Changed status!")
+            window.location.href = "";
+        }
+    });
+    
+});
 </script>
 
 @endsection
