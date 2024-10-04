@@ -3,6 +3,7 @@
 
 <div class="page-content">
     @include('_message')
+    
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Users</a></li>
@@ -181,7 +182,7 @@
                                 <th>Date</th>
                                 <th>Action</th>
                             </tr>
-                        </thead>
+                        </thead>{{ welcomePage }}
                         <tbody>
                             @forelse ($getRecord as $value )
                             <form class="a_form{{ $value->id }}" method="post">
@@ -295,7 +296,7 @@
         });
 
     });
-    
+
 
 $('.changeStatus').change(function (e) { 
     var status_id = $(this).val();
