@@ -219,4 +219,40 @@ class AdminController extends Controller
       $json['success'] = true;
       echo json_encode($json);
    }
+
+   public function admin_my_profil(Request $request)
+   {
+      $data['getRecord'] = User::find(Auth::user()->id);
+     return View('admin.profile', $data);
+   }
+
+   public function admin_my_profil_update(Request $request){
+
+      $user = $request->validate([
+         'email' =>'required|unique:users,email,'.Auth::user()->id
+      ]);
+      
+
+       $user = User::find(Auth::user()->id);
+       $user->name = trim($request->name);
+       $user->email = trim($request->email);
+       if( !empty($request->password))
+       {
+          $user->password = Hash::make(trim($request->password));
+       }
+
+       if(!empty($request->file('photo'))){
+
+          $file = $request->file('photo');
+          $randomStr = Str::random(30);
+          $fileName = $randomStr. '.'. $file->getClientOriginalExtension();
+          $file->move('upload/', $fileName);
+          $user->photo = $fileName;
+       }
+         
+       $user->update();
+
+      return redirect('admin/my_profil')->with('success', 'uploaded successfully');
+
+   }
 }

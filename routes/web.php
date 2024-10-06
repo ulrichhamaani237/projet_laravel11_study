@@ -46,6 +46,8 @@ Route::middleware(['auth', 'role:admin'])->group(function (){
     Route::get('admin/users/delete/{id}', [AdminController::class, 'admin_users_delete']);
     Route::get('admin/users/update',[AdminController::class, 'admin_users_update']);
     Route::get('admin/users/changeStatus',[AdminController::class, 'admin_user_changeStatus']);
+    Route::get('admin/my_profil', [AdminController::class, 'admin_my_profil']);
+    Route::post('admin/my_profil/update',[AdminController::class, 'admin_my_profil_update']);
     
     
 

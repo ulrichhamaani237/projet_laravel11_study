@@ -182,7 +182,7 @@
                                 <th>Date</th>
                                 <th>Action</th>
                             </tr>
-                        </thead>{{ welcomePage }}
+                        </thead>
                         <tbody>
                             @forelse ($getRecord as $value )
                             <form class="a_form{{ $value->id }}" method="post">
@@ -279,6 +279,7 @@
 @endsection
 
 @section('script')
+
 <script type="text/javascript">
     $('table').on('click', '.submitfform', function(event) {
         var id = $(this).attr('id');
