@@ -59,6 +59,8 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
     Route::get('agent/dashboard', [AgentController::class,'AgentDashboard'], )
     ->name('agent.dashboard');
 
+    Route::get('agent/email/inbox', [AdminController::class, 'agent_email_inbox']);
+
 });
 
 // Route::get('user/dashboard', [AgentController::class,'AgentDashboard'], )->name('agent.dashboard');

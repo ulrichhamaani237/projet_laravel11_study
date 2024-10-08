@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\RegisterMail;
-
-
-
+use App\Models\Compose_emails;
 
 class AdminController extends Controller
 {
@@ -254,5 +252,12 @@ class AdminController extends Controller
 
       return redirect('admin/my_profil')->with('success', 'uploaded successfully');
 
+   }
+
+   public function agent_email_inbox(Request $reqeust){
+
+      $data['getRecord'] = Compose_emails::getAgentRecord(Auth::user()->id); // on recupere l utilisateur authentifier
+
+      return View('agent.emails.inbox', $data);
    }
 }
