@@ -71,6 +71,8 @@ Route::middleware(['auth', 'role:admin'])->group(function (){
    
 
     // week time end
+
+    Route::get('admin/schedule',[UserTimeController::class, 'admin_schedule']);
     
 
 

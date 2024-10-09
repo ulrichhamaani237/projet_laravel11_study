@@ -113,7 +113,7 @@ class UserTimeController extends Controller
 
     return redirect('admin/week_time')->with('success','Week time updated successfully');
   }
-    
+     
  /**
      * @author ulrich_dev
      * @description week time delete controller for admin panel 
@@ -126,6 +126,13 @@ class UserTimeController extends Controller
      $record->delete();
      return redirect('admin/week_time')->with('success','Week time deleted successfully');
 
+ }
+
+ public function admin_schedule(Request $request): View
+ {
+    $data['week'] = WeekModel::get();
+    $data['week_time_row'] = Week_time::get();
+    return view('admin.schedule.list', $data);
  }
 
 }
