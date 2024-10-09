@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Week_time;
 use App\Models\WeekModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -56,4 +57,75 @@ class UserTimeController extends Controller
         $record->delete();
         return redirect('admin/week')->with('success','Week deleted successfully..!');
     }
+
+    /**
+     * @author ulrich_dev
+     * @description week time list view controller for admin panel 
+     * @param Request
+     */
+
+    public function week_time_list(Request $request): View{
+         
+        $data['getRecord'] = Week_time::get();
+
+        return view('admin.week_time.list', $data);
+
+    }
+
+    /**
+     * @author ulrich_dev
+     * @description week time add view controller for admin panel 
+     * @param Request
+     */
+    public function week_time_add(Request $request): View{
+
+        return view('admin.week_time.add');
+
+    }
+
+    /**
+     * @author ulrich_dev
+     * @description week time store controller for admin panel 
+     * @param Request
+     */
+    public function week_time_store(Request $request){
+       $record = new Week_time;
+       $record->name = trim($request->name);
+       $record->save();
+       return redirect('admin/week_time')->with('success','Week time added successfully');
+    }
+
+    /**
+     * @author ulrich_dev
+     * @description week time edit view controller for admin panel 
+     * @param Request
+     */
+    public function week_time_edit($id) : View{
+       
+         $data['getRecord'] = Week_time::find($id);
+        return view('admin.week_time.edit', $data);
+        
+    }
+  public function week_time_edit_store(Request $request, $id){
+    $record= Week_time::find($id);
+    $record->name = trim($request->name);
+    $record->save();
+
+    return redirect('admin/week_time')->with('success','Week time updated successfully');
+  }
+    
+ /**
+     * @author ulrich_dev
+     * @description week time delete controller for admin panel 
+     * @param Request
+*/
+
+ public function week_time_delete (Request $request, $id){
+
+     $record = Week_time::find($id);
+     $record->delete();
+     return redirect('admin/week_time')->with('success','Week time deleted successfully');
+
+ }
+
 }
