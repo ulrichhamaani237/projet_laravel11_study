@@ -20,7 +20,6 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
                         <h4 class="card-title">Users List</h4>
-                       
                     </div>
     
                     <div class="table-responsive pt-3">
@@ -35,24 +34,42 @@
                             </thead>
                             <tbody>
                               @foreach ($week as $row )
+
+                              @php
+                               $getUserWeek =  App\Models\User_time::getDetail($row->id);
+                               $open_close =  !empty($getUserWeek->start_time) ? $getUserWeek->start_time : '';
+                               $start_time =  !empty($getUserWeek->status) ? $getUserWeek->status : '';
+                               $end_time   =  !empty($getUserWeek->end_time) ? $getUserWeek->end_time : '';
+                              @endphp
+
                                   <tr class="table-info text-dark">
                                     <td>{{ !empty($row->name) ? $row->name : '' }}</td>
 
                                     <td>
+                                        <input type="hidden" name="week[{{ $row->id }}][week_id]" value="{{ $row->id }}">
                                         <label for="check" class="switch">
-                                            <input type="checkbox" name="week" id="check">
+                                            <input type="checkbox" name="week[{{ $row->id }}][status]" id="{{ $row->id }}" {{ !empty($open_close) ? 'checked' : '' }}>
                                         </label>
                                     </td>
 
                                     <td>
-                                        @foreach ($week_time_row as $time_row1 )
+                                        <select name="week[{{ $row->id }}][start_time]"  class="form-control"
+                                            
+                                            >
+                                             @foreach ($week_time_row as $time_row1 )
                                             <option value="">{{ $time_row1->name }}</option>
-                                        @endforeach
+                                             @endforeach
+                                        </select>
+                                       
                                     </td>
                                     <td>
+                                        <select name="week[{{ $row->id }}][end_time]" id="" class="form-control"
+                                         }}"
+                                        >
                                         @foreach ($week_time_row as $time_now )
                                             <option value="">{{ $time_now->name }}</option>
                                         @endforeach
+                                        </select>
                                     </td>
                                   </tr>
                               @endforeach

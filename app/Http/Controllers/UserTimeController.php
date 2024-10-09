@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User_time;
 use App\Models\Week_time;
 use App\Models\WeekModel;
 use Illuminate\Contracts\View\View;
@@ -132,6 +133,8 @@ class UserTimeController extends Controller
  {
     $data['week'] = WeekModel::get();
     $data['week_time_row'] = Week_time::get();
+
+    $data['getRecord'] = User_time::get();    
     return view('admin.schedule.list', $data);
  }
 
